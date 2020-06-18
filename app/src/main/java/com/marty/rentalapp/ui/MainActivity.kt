@@ -3,15 +3,13 @@ package com.marty.rentalapp.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.marty.rentalapp.R
-import com.marty.rentalapp.network.NetworkServiceApi
+import com.marty.rentalapp.network.SearchApi
 import org.koin.core.KoinComponent
-import org.koin.core.context.KoinContextHandler.get
 import org.koin.core.get
-import org.koin.core.inject
 
 class MainActivity : AppCompatActivity(), KoinComponent {
 
-    private val serviceApi: NetworkServiceApi = get()
+    private val serviceSearchApi: SearchApi = get()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

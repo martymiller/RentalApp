@@ -7,10 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import com.jakewharton.rxbinding4.widget.textChanges
 import com.marty.rentalapp.databinding.SearchFragmentBinding
 import com.marty.rentalapp.di.MAIN_SCHEDULER
 import io.reactivex.rxjava3.core.Scheduler
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 import org.koin.android.ext.android.get
 import org.koin.core.KoinComponent
 import java.util.concurrent.TimeUnit
@@ -23,6 +25,7 @@ class SearchFragment : Fragment(), KoinComponent {
 
     private val viewModel: SearchViewModel by activityViewModels()
     private val mainScheduler: Scheduler = get(MAIN_SCHEDULER)
+    private val compositeDisposable = CompositeDisposable()
     private var _binding: SearchFragmentBinding? = null
     private val binding get() = _binding!!
 
@@ -43,20 +46,31 @@ class SearchFragment : Fragment(), KoinComponent {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        compositeDisposable.dispose()
     }
 
     private fun setupViews() {
+        viewModel.fetchRentals("trailer")
+
+        viewModel.rentals.observe(viewLifecycleOwner,
+            Observer {
+                val test = it
+            }
+        )
+
         binding.searchEditText.textChanges()
             .map(CharSequence::toString)
             .filter(String::isEmpty)
             .distinctUntilChanged()
             .subscribe { viewModel.clearList() }
+            .also { compositeDisposable.add(it) }
 
         binding.searchEditText.textChanges()
-                .debounce(DEBOUNCE_DURATION_MSEC, TimeUnit.MILLISECONDS, mainScheduler)
-                .map(CharSequence::toString)
-                .filter(String::isNotEmpty)
-                .distinctUntilChanged()
-                .subscribe(viewModel::fetchRentals)
+            .debounce(DEBOUNCE_DURATION_MSEC, TimeUnit.MILLISECONDS, mainScheduler)
+            .map(CharSequence::toString)
+            .filter(String::isNotEmpty)
+            .distinctUntilChanged()
+            .subscribe(viewModel::fetchRentals)
+            .also { compositeDisposable.add(it) }
     }
 }

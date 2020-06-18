@@ -1,10 +1,10 @@
 package com.marty.rentalapp.network
 
 import com.marty.rentalapp.BuildConfig
+import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 class NetworkService {
@@ -22,13 +22,13 @@ class NetworkService {
             return@lazy clientBuilder.build()
         }
 
-        fun init(): NetworkServiceApi =
+        fun initSearchApi(): SearchApi =
             Retrofit.Builder()
-                .baseUrl("https://api.coinbase.com/")
+                .baseUrl("https://search.outdoorsy.co/")
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .client(client)
                 .build()
-                .create(NetworkServiceApi::class.java)
+                .create(SearchApi::class.java)
     }
 }
