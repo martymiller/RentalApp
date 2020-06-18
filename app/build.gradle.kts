@@ -7,6 +7,8 @@ plugins {
 android {
     compileSdkVersion(Apps.compileSdk)
     buildToolsVersion("29.0.3")
+    buildFeatures { viewBinding = true }
+    kotlinOptions { jvmTarget = "1.8" }
 
     defaultConfig {
         applicationId = "com.marty.rentalapp"
@@ -29,20 +31,36 @@ android {
             consumerProguardFile("proguard-rules.pro")
         }
     }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation(Libs.appcompat)
-    implementation(Libs.rxbinding)
-    implementation(Libs.rxjava)
-    implementation(Libs.timber)
-//    implementation("androidx.core:core-ktx:1.3.0")
-//    implementation("androidx.legacy:legacy-support-v4:1.0.0")
-//    implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
-//    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
-    implementation("androidx.constraintlayout:constraintlayout:1.1.3")
-    testImplementation("junit:junit:4.12")
-    androidTestImplementation("androidx.test.ext:junit:1.1.1")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.2.0")
+    api(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    api(Libs.appcompat)
+    api(Libs.constraintLayout)
+    api(Libs.koin)
+    api(Libs.lifecycleExtensions)
+    api(Libs.lifecycleLiveData)
+    api(Libs.lifecycleViewModel)
+    api(Libs.loggingInterceptor)
+    api(Libs.navigationFragment)
+    api(Libs.navigationUI)
+    api(Libs.okHttp)
+    api(Libs.retroFit)
+    api(Libs.retroFitGsonConverter)
+    api(Libs.retroFitRxAdapter)
+    api(Libs.rxAndroid)
+    api(Libs.rxBinding)
+    api(Libs.rxJava)
+    api(Libs.rxRelay)
+    api(Libs.timber)
+    //api("androidx.core:core-ktx:1.3.0")
+    //implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    testApi(Libs.koinTest)
+    testApi("junit:junit:4.12")
+    androidTestApi("androidx.test.ext:junit:1.1.1")
+    androidTestApi("androidx.test.espresso:espresso-core:3.2.0")
 }
