@@ -28,6 +28,7 @@ class SearchFragment : Fragment(), KoinComponent {
     private val compositeDisposable = CompositeDisposable()
     private var _binding: SearchFragmentBinding? = null
     private val binding get() = _binding!!
+    private val adapter = SearchAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,11 +51,12 @@ class SearchFragment : Fragment(), KoinComponent {
     }
 
     private fun setupViews() {
+        binding.searchRecyclerView.adapter = adapter
         viewModel.fetchRentals("trailer")
 
         viewModel.rentals.observe(viewLifecycleOwner,
-            Observer {
-                val test = it
+            Observer { searchItems ->
+                adapter.update(searchItems)
             }
         )
 

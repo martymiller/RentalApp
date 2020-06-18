@@ -49,6 +49,7 @@ dependencies {
     api(Libs.navigationFragment)
     api(Libs.navigationUI)
     api(Libs.okHttp)
+    api(Libs.picasso)
     api(Libs.retroFit)
     api(Libs.retroFitGsonConverter)
     api(Libs.rxAndroid)

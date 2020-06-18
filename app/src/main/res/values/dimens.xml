@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="space_xsmall">2dp</dimen>
+    <dimen name="space_small">6dp</dimen>
     <dimen name="space_default">12dp</dimen>
     <dimen name="space_large">18dp</dimen>
+    <dimen name="search_image_width">125dp</dimen>
+    <dimen name="search_image_height">75dp</dimen>
+
 </resources>
