@@ -102,15 +102,16 @@ class SearchFragment : Fragment(), KoinComponent {
             .also { compositeDisposable.add(it) }
 
         adapter.onItemClicked()
-            .subscribe { (imageView, title) ->
+            .subscribe { (imageView, textView) ->
                 val extras = FragmentNavigatorExtras(
-                    imageView to imageView.transitionName
+                    imageView to imageView.transitionName,
+                    textView to textView.transitionName
                 )
                 val bundle = Bundle().apply {
-                    putString("title", title)
+                    putString("title", textView.transitionName)
                     putString("url", imageView.transitionName)
                 }
-                findNavController().navigate(R.id.profileFragment, bundle, null, extras)
+                findNavController().navigate(R.id.action_searchFragment_to_profileFragment, bundle, null, extras)
             }
             .also { compositeDisposable.add(it) }
     }

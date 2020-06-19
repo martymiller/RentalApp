@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.marty.rentalapp.databinding.FragmentProfileBinding
 import com.marty.rentalapp.util.load
+import kotlinx.android.synthetic.main.fragment_profile.*
 
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
@@ -19,10 +20,13 @@ class ProfileFragment : Fragment() {
     ): View? {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         arguments?.let { bundle ->
-            binding.profileTitle.text = bundle.getString("title") ?: ""
             bundle.getString("url")?.let { url ->
                 binding.profileImage.transitionName = url
                 binding.profileImage.load(url)
+            }
+            bundle.getString("title")?.let { title ->
+                binding.profileTitle.transitionName = title
+                binding.profileTitle.text = title
             }
         }
         sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)

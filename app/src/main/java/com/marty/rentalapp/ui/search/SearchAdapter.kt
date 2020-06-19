@@ -52,15 +52,16 @@ internal class SearchAdapter : RecyclerView.Adapter<SearchAdapter.SearchViewHold
                 .into(holder.image)
 
             holder.image.transitionName = imageUrl ?: position.toString()
+            holder.title.transitionName = title
 
             holder.itemView.clicks().subscribe {
-                onItemClicked.accept(holder.image to title)
+                onItemClicked.accept(holder.image to holder.title)
             }
         }
     }
 
-    fun onItemClicked(): Observable<Pair<ImageView, String>> = onItemClicked
-    private val onItemClicked = PublishRelay.create<Pair<ImageView, String>>()
+    fun onItemClicked(): Observable<Pair<ImageView, TextView>> = onItemClicked
+    private val onItemClicked = PublishRelay.create<Pair<ImageView, TextView>>()
 
     fun update(updatedList: List<SearchItem>) {
         searchItemsList.clear()
