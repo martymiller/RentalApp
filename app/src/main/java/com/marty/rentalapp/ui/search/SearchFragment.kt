@@ -77,7 +77,11 @@ class SearchFragment : Fragment(), KoinComponent {
         viewModel.showError.observe(viewLifecycleOwner,
             Observer { showError ->
                 if (showError) {
-                    Toast.makeText(context, "Unable to retrieve rentals at this time", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context,
+                        "Unable to retrieve rentals at this time",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         )

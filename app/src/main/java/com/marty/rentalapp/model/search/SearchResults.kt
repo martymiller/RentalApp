@@ -7,9 +7,6 @@ class SearchResults(
     val included: List<IncludedItem>?
 ) {
 
-    //Find primary image URL of rental by getting the ID from `data[].relationships.primary_image.data.id`
-    //and finding the matching `id` with `type: images` from the `included` array. The image URL is at `included[].attributes.url`.
-
     class DataItem(
         @SerializedName("id") val id: String,
         @SerializedName("attributes") val attributes: Attributes,
