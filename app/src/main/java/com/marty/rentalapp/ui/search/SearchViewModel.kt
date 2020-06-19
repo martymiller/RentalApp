@@ -41,7 +41,7 @@ class SearchViewModel : ViewModel(), KoinComponent {
             .let(compositeDisposable::add)
     }
 
-    fun clearList(): Unit {
-        //TODO
+    fun clearList() {
+        rentals.postValue(listOf())
     }
 }

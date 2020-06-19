@@ -6,14 +6,20 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.jakewharton.rxbinding4.view.clicks
 import com.jakewharton.rxrelay3.PublishRelay
 import com.marty.rentalapp.R
 import com.marty.rentalapp.model.search.SearchItem
-import com.squareup.picasso.Picasso
 import io.reactivex.rxjava3.core.Observable
 
 internal class SearchAdapter : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
+
+    companion object {
+        private const val MAX_IMAGE_WIDTH = 1024
+        private const val MAX_IMAGE_HEIGHT = 768
+    }
 
     private val searchItemsList = mutableListOf<SearchItem>()
 
@@ -36,7 +42,13 @@ internal class SearchAdapter : RecyclerView.Adapter<SearchAdapter.SearchViewHold
     override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
         searchItemsList[position].apply {
             holder.title.text = title
-            Picasso.get().load(imageUrl).into(holder.image)
+            Glide
+                .with(holder.itemView.context)
+                .load(imageUrl)
+                .centerCrop()
+                .transform(RoundedCorners(2))
+                .placeholder(R.drawable.ic_baseline_car_24)
+                .into(holder.image)
         }
         holder.itemView.clicks().subscribe {
             onItemClicked.accept(searchItemsList[position])
