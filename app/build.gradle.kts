@@ -43,8 +43,6 @@ dependencies {
     implementation(Libs.appcompat)
     implementation(Libs.constraintLayout)
     implementation(Libs.glide)
-    implementation(Libs.glide)
-
     implementation(Libs.koin)
     implementation(Libs.lifecycleExtensions)
     implementation(Libs.lifecycleLiveData)
