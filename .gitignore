@@ -50,7 +50,6 @@ Thumbs.db
 bin/
 gen/
 out/
-buildSrc/
 
 # Gradle files
 .gradle/
