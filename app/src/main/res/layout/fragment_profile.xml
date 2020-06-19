@@ -11,8 +11,8 @@
     <ImageView
         android:id="@+id/profileImage"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/space_xlarge"
+        android:layout_height="@dimen/profile_image_height"
+        android:scaleType="centerCrop"
         android:adjustViewBounds="true"
         android:background="@color/light_grey"
         android:src="@drawable/ic_baseline_car_24" />
@@ -21,7 +21,7 @@
         android:id="@+id/profileTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/space_default"
+        android:layout_marginTop="@dimen/space_default"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         tools:text="Profile Title" />
 

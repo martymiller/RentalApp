@@ -35,7 +35,6 @@ class ProfileFragment : Fragment() {
             val url = it.getString("url")
             binding.profileImage.transitionName = url
             binding.profileImage.load(url!!)
-
         }
         sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         return binding.root
@@ -43,6 +42,9 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        arguments?.let {
+            binding.profileTitle.text = it.getString("title")
+        }
     }
 
     override fun onDestroyView() {

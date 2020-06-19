@@ -51,7 +51,7 @@ internal class SearchAdapter : RecyclerView.Adapter<SearchAdapter.SearchViewHold
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.image)
 
-            holder.image.transitionName = imageUrl
+            holder.image.transitionName = imageUrl ?: position.toString()
 
             holder.itemView.clicks().subscribe {
                 onItemClicked.accept(holder.image to title)
