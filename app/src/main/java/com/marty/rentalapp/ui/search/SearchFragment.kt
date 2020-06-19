@@ -1,6 +1,5 @@
 package com.marty.rentalapp.ui.search
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +8,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import com.jakewharton.rxbinding4.widget.textChanges
-import com.marty.rentalapp.databinding.SearchFragmentBinding
+import com.marty.rentalapp.R
+import com.marty.rentalapp.databinding.FragmentSearchBinding
 import com.marty.rentalapp.di.MAIN_SCHEDULER
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -27,7 +29,7 @@ class SearchFragment : Fragment(), KoinComponent {
     private val viewModel: SearchViewModel by activityViewModels()
     private val mainScheduler: Scheduler = get(MAIN_SCHEDULER)
     private val compositeDisposable = CompositeDisposable()
-    private var _binding: SearchFragmentBinding? = null
+    private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
     private val adapter = SearchAdapter()
 
@@ -36,7 +38,7 @@ class SearchFragment : Fragment(), KoinComponent {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = SearchFragmentBinding.inflate(inflater, container, false)
+        _binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -48,7 +50,7 @@ class SearchFragment : Fragment(), KoinComponent {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        compositeDisposable.dispose()
+        compositeDisposable.clear()
     }
 
     private fun setupViews() {
@@ -81,6 +83,7 @@ class SearchFragment : Fragment(), KoinComponent {
         )
 
         binding.searchEditText.textChanges()
+            .skip(1)
             .map(CharSequence::toString)
             .filter(String::isEmpty)
             .subscribe { viewModel.clearList() }
@@ -92,6 +95,19 @@ class SearchFragment : Fragment(), KoinComponent {
             .filter(String::isNotEmpty)
             .distinctUntilChanged()
             .subscribe(viewModel::fetchRentals)
+            .also { compositeDisposable.add(it) }
+
+        adapter.onItemClicked()
+            .subscribe { (imageView, title) ->
+                val extras = FragmentNavigatorExtras(
+                    imageView to imageView.transitionName
+                )
+                val bundle = Bundle().apply {
+                    putString("title", title)
+                    putString("url", imageView.transitionName)
+                }
+                findNavController().navigate(R.id.profileFragment, bundle, null, extras)
+            }
             .also { compositeDisposable.add(it) }
     }
 }

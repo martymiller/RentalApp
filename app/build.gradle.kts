@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("android.extensions")
+    id("kotlin-android")
 }
 
 android {
@@ -60,6 +61,7 @@ dependencies {
     implementation(Libs.rxJava)
     implementation(Libs.rxRelay)
     implementation(Libs.timber)
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
     testImplementation(Libs.koinTest)
     testImplementation("junit:junit:4.12")
     annotationProcessor(Libs.glideCompiler)

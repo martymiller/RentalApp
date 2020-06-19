@@ -25,7 +25,7 @@ class SearchViewModel : ViewModel(), KoinComponent {
 
     override fun onCleared() {
         super.onCleared()
-        compositeDisposable.dispose()
+        compositeDisposable.clear()
     }
 
     fun fetchRentals(query: String) {
@@ -37,6 +37,7 @@ class SearchViewModel : ViewModel(), KoinComponent {
             .map(SearchResults::toSearchItemsList)
             .subscribe(rentals::postValue) { throwable ->
                 Timber.e(throwable, "Unable to fetch rentals")
+                showError.postValue(true)
             }
             .let(compositeDisposable::add)
     }

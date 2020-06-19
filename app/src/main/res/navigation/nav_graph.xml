@@ -9,6 +9,12 @@
         android:id="@+id/searchFragment"
         android:name="com.marty.rentalapp.ui.search.SearchFragment"
         android:label="Search"
-        tools:layout="@layout/search_fragment" />
+        tools:layout="@layout/fragment_search" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.marty.rentalapp.ui.profile.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
 
 </navigation>

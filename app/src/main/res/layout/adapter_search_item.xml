@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -18,10 +19,21 @@
             android:padding="@dimen/space_small">
 
             <ImageView
+                android:id="@+id/placeHolder"
+                android:layout_width="@dimen/search_image_width"
+                android:layout_height="@dimen/search_image_height"
+                android:background="@color/light_grey"
+                android:src="@drawable/ic_baseline_car_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
                 android:id="@+id/searchImage"
                 android:layout_width="@dimen/search_image_width"
                 android:layout_height="@dimen/search_image_height"
                 android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -30,12 +42,12 @@
                 android:id="@+id/searchTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_default"
                 android:maxLines="2"
                 android:textColor="@android:color/black"
-                android:layout_marginStart="@dimen/space_default"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/searchImage"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/searchImage"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Search Results" />
 

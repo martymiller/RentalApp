@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 class SearchResults(
     val data: List<DataItem>,
-    val included: List<IncludedItem>
+    val included: List<IncludedItem>?
 ) {
 
     //Find primary image URL of rental by getting the ID from `data[].relationships.primary_image.data.id`
